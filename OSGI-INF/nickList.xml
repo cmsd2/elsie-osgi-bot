@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" immediate="true" modified="updated" name="uk.org.elsie.osgi.bot.NickListService">
+   <implementation class="uk.org.elsie.osgi.bot.NickListServiceImpl"/>
+   <property name="irc.nicks" type="String">fatelsie
+bigelsie
+   </property>
+   <service>
+      <provide interface="uk.org.elsie.osgi.bot.NickListService"/>
+   </service>
+</scr:component>

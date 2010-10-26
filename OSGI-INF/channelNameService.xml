@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" factory="uk.org.elsie.osgi.bot.ChannelNameService" immediate="false" name="uk.org.elsie.osgi.bot.ChannelNameService">
+   <implementation class="uk.org.elsie.osgi.bot.ChannelNameServiceImpl"/>
+   <reference bind="setConnection" cardinality="1..1" interface="uk.org.elsie.osgi.bot.ConnectionService" name="ConnectionService" policy="static" unbind="unsetConnection"/>
+   <service>
+      <provide interface="uk.org.elsie.osgi.bot.ChannelNameService"/>
+   </service>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="static" unbind="unsetEventAdmin"/>
+</scr:component>

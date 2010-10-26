@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" name="uk.org.elsie.osgi.bot.SimpleCtcpEventHandler">
+   <implementation class="uk.org.elsie.osgi.bot.SimpleCtcpEventHandlerImpl"/>
+   <service>
+      <provide interface="org.osgi.service.event.EventHandler"/>
+   </service>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="static" unbind="unsetEventAdmin"/>
+   <reference bind="setConnection" cardinality="1..1" interface="uk.org.elsie.osgi.bot.ConnectionService" name="ConnectionService" policy="static" unbind="unsetConnection"/>
+   <property name="event.topics" type="String" value="elsie/irc/msg"/>
+   <property name="event.filter" type="String" value="(|(irc.msg.command=CTCP_VERSION)(irc.msg.command=CTCP_TIME)(irc.msg.command=CTCP_PING))"/>
+</scr:component>

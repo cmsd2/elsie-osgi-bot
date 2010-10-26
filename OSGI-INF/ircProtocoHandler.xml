@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" deactivate="deactivate" immediate="true" modified="updated" name="uk.org.elsie.osgi.bot.IrcProtocolEventHandler">
+   <implementation class="uk.org.elsie.osgi.bot.IrcProtocolEventHandler"/>
+   <property name="event.topics" type="String" value="elsie/irc/*"/>
+   <service>
+      <provide interface="org.osgi.service.event.EventHandler"/>
+   </service>
+   <reference bind="setConnection" cardinality="1..1" interface="uk.org.elsie.osgi.bot.ConnectionService" name="ConnectionService" policy="static" unbind="unsetConnection"/>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="unsetEventAdmin"/>
+</scr:component>

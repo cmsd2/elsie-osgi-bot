@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="uk.org.elsie.osgi.bot.ServerListService">
+   <implementation class="uk.org.elsie.osgi.bot.ServerListServiceImpl"/>
+   <service>
+      <provide interface="uk.org.elsie.osgi.bot.ServerListService"/>
+   </service>
+   <property name="irc.servers" type="String" value="localhost"/>
+</scr:component>

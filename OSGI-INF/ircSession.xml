@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="activate" immediate="true" modified="updated" name="uk.org.elsie.osgi.bot.IrcSessionService">
+   <implementation class="uk.org.elsie.osgi.bot.IrcSessionServiceImpl"/>
+   <service>
+      <provide interface="uk.org.elsie.osgi.bot.IrcSessionService"/>
+      <provide interface="org.osgi.service.event.EventHandler"/>
+   </service>
+   <property name="irc.user.realName" type="String" value="Chris"/>
+   <property name="irc.user.mode" type="Integer" value="0"/>
+   <reference bind="setConnection" cardinality="1..1" interface="uk.org.elsie.osgi.bot.ConnectionService" name="ConnectionService" policy="dynamic" unbind="unsetConnection"/>
+   <reference bind="setNickList" cardinality="1..1" interface="uk.org.elsie.osgi.bot.NickListService" name="NickListService" policy="dynamic" unbind="unsetNickList"/>
+   <property name="event.topics" type="String" value="elsie/irc/*"/>
+   <reference bind="setEventAdmin" cardinality="1..1" interface="org.osgi.service.event.EventAdmin" name="EventAdmin" policy="dynamic" unbind="unsetEventAdmin"/>
+</scr:component>

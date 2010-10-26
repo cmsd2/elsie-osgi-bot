@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Bot
+Bundle-SymbolicName: uk.org.elsie.osgi.bot
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: uk.org.elsie.osgi.bot.Activator
+Bundle-Vendor: uk.org.elsie
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.apache.commons.logging;version="1.0.4",
+ org.osgi.framework;version="1.3.0",
+ org.osgi.service.cm,
+ org.osgi.service.component,
+ org.osgi.service.event,
+ org.osgi.util.tracker;version="1.4.0"
+Export-Package: uk.org.elsie.osgi.bot
+Service-Component: OSGI-INF/channel.xml, OSGI-INF/connectionService.xml, OSGI-INF/eventLogger.xml, OSGI-INF/serverList.xml, OSGI-INF/ircSession.xml, OSGI-INF/ircProtocoHandler.xml, OSGI-INF/nickList.xml, OSGI-INF/pingHandler.xml, OSGI-INF/channelAdmin.xml, OSGI-INF/channelNameService.xml, OSGI-INF/simpleCtctp.xml
+Bundle-ActivationPolicy: lazy

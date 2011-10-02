@@ -48,11 +48,38 @@ public class IrcProtocolEventHandler extends AbstractIrcEventHandler implements 
 			List<IRCMessage> msgs = this.ircProtocol.parse(input, myNick);
 			
 			for(IRCMessage msg : msgs) {
-				sendIrcMessageEvent(event, msg);
+				sendMessageEvents(event, msg);
 			}
 		} else if(event.getTopic().equals(IrcEventConstants.IRC_NICK_CHANGING_TOPIC)) {
 			myNick = (String) event.getProperty(IrcEventConstants.IRC_NICK);
 		}
+	}
+	
+	public void sendMessageEvents(Event origEvent, IRCMessage msg) {
+		sendIrcMessageEvent(origEvent, msg);
+
+		if(msg.getCommand().equalsIgnoreCase("PRIVMSG")) {
+			sendIrcPrivmsgEvent(origEvent, msg);
+		}
+	}
+	
+	public void sendIrcPrivmsgEvent(Event origEvent, IRCMessage msg) {
+		if(eventAdmin == null)
+			return;
+
+		Map<String, Object> properties = new TreeMap<String, Object>();
+		properties.putAll(PropertiesUtil.eventProperties(origEvent));
+		properties.put(EventConstants.SERVICE, self);
+		properties.put(IrcEventConstants.IRC_MESSAGE, msg);
+		if(msg.getParams() != null && msg.getParams().length > 0 && !msg.isPrivate()) {
+			properties.put(IrcEventConstants.RETURN_TARGET, msg.getParams()[0]);
+		} else {
+			properties.put(IrcEventConstants.RETURN_TARGET, msg.getPrefixNick());
+		}
+		properties.putAll(msg.getProperties());
+		
+		Event event = new Event(IrcEventConstants.IRC_PRIVMSG_TOPIC, properties);
+		eventAdmin.postEvent(event);
 	}
 	
 	public void sendIrcMessageEvent(Event origEvent, IRCMessage msg) {

@@ -21,7 +21,7 @@ public class EventLogger implements EventHandler {
 		
 		for(int i = 0; i < event.getPropertyNames().length; i++) {
 			String name = event.getPropertyNames()[i];
-			log.info("  " + eventNumStr + name + " = " + valueToString(event.getProperty(name)));
+			log.debug("  " + eventNumStr + name + " = " + valueToString(event.getProperty(name)));
 		}
 	}
 	

@@ -171,7 +171,6 @@ public class IrcSessionServiceImpl extends AbstractIrcEventHandler implements Ir
 		String string = ircProtocol.privmsg(target, message);
 		String nextString;
 		int i;
-		String[] params = new String[1];
 		final int limit = 510 - (target.length()
 				+ this.getNick().length()
 				+ ircProtocol.getHostname().length() + 15);
@@ -190,33 +189,10 @@ public class IrcSessionServiceImpl extends AbstractIrcEventHandler implements Ir
 		}
 
 		this.connection.postCommand(string);
-		params[0] = target;
-		boolean isPrivate;
-
-		if (target.startsWith("#") | target.startsWith("&")
-				| target.startsWith("!") | target.startsWith("+")) {
-			isPrivate = false;
-		} else {
-			isPrivate = true;
-		}
-
-		if (this.eventAdmin != null) {
-			IRCMessage ircMsg;
-			String topic;
-			if (message.matches("\001ACTION .*\001")) {
-				topic = IrcEventConstants.IRC_CTCP_ACTION_TOPIC;
-				ircMsg = new IRCMessage("CTCP_ACTION",
-						this.getNick(), params,
-						message.replaceAll("\001ACTION (.*)\001", "$1"),
-						this.getNick(), "", isPrivate);
-			} else {
-				topic = IrcEventConstants.IRC_PRIVMSG_TOPIC;
-				ircMsg = new IRCMessage("PRIVMSG",
-						this.getNick(), params, message,
-						this.getNick(), "", isPrivate);
-			}
-			Event event = new Event(topic, ircMsg.getProperties());
-			eventAdmin.postEvent(event);
-		}
+	}
+	
+	public void reply(Event event, String message) {
+		String target = (String)event.getProperty(IrcEventConstants.RETURN_TARGET);
+		privMsg(target, message);
 	}
 }

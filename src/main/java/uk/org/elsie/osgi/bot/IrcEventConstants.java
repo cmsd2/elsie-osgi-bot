@@ -9,6 +9,7 @@ public interface IrcEventConstants {
 	public static final String IDENT = "irc.msg.ident";
 	public static final String PRIVATE = "irc.msg.private";
 	public static final String NETWORK = "irc.network";
+	public static final String RETURN_TARGET = "irc.msg.returnTarget";
 	
 	public static final String IRC_SERVICE = "irc.service";
 	public static final String SERVER_HOSTNAME = "irc.server.hostname";
@@ -24,7 +25,6 @@ public interface IrcEventConstants {
 	public static final String IRC_USER_REAL_NAME = "irc.user.realName";
 	public static final String IRC_NICKS = "irc.nicks";
 
-	public static final String IRC_PRIVMSG_TOPIC = "elsie/irc/privmsg";
 	public static final String IRC_CTCP_ACTION_TOPIC = "elsie/irc/ctcpAction";
 	public static final String IRC_CONNECTED_TOPIC = "elsie/irc/connected";
 	public static final String IRC_DISCONNECTED_TOPIC = "elsie/irc/disconnected";
@@ -32,12 +32,12 @@ public interface IrcEventConstants {
 	public static final String ERROR_TOPIC = "elsie/error";
 	public static final String IRC_RAW_MESSAGE_TOPIC = "elsie/irc/rawMessage";
 	public static final String IRC_MESSAGE_TOPIC = "elsie/irc/msg";
+	public static final String IRC_PRIVMSG_TOPIC = "elsie/irc/privmsg";
 	public static final String IRC_NICK_CHANGING_TOPIC = "elsie/irc/nick/changing";
 	public static final String IRC_NICK_CHANGED_TOPIC = "elsie/irc/nick/changed";
 	public static final String IRC_REGISTERED_TOPIC = "elsie/irc/registered";
 	public static final String IRC_CHANNEL_JOINED_TOPIC = "elsie/irc/channel/joined";
 	public static final String IRC_CHANNEL_PARTED_TOPIC = "elsie/irc/channel/parted";
-	public static final String IRC_CHANNEL_MESSAGE_TOPIC = "elsie/irc/channel/message";
-	public static final String IRC_BOT_MESSAGE_TOPIC = "elsie/irc/bot/message";
+	public static final String IRC_CHANNEL_MESSAGE_TOPIC = "elsie/irc/channel/privmsg";
 	public static final String IRC_UNREGISTERED_TOPIC = "elsie/irc/unregistered";
 }

@@ -130,17 +130,6 @@ public class ChannelImpl implements EventHandler, Channel {
 		eventAdmin.postEvent(event);
 	}
 	
-	protected void sendChanBotEvent(Event origEvent, String prefixNick, String msg, boolean isPrivate) {
-		Map<String,Object> properties = new TreeMap<String, Object>();
-		properties.putAll(PropertiesUtil.eventProperties(origEvent));
-		properties.put(IrcEventConstants.SENDER_NICK, prefixNick);
-		properties.put(IrcEventConstants.BOT_COMMAND, msg);
-		properties.put(IrcEventConstants.IRC_CHANNEL, getChannel());
-		properties.put(IrcEventConstants.PRIVATE, isPrivate);
-		Event event = new Event(IrcEventConstants.IRC_BOT_MESSAGE_TOPIC, properties);
-		eventAdmin.postEvent(event);
-	}
-	
 	public void handleEvent(Event event) {
 		if(event.getTopic().equals(IrcEventConstants.IRC_NICK_CHANGING_TOPIC)) {
 			this.nick = (String) event.getProperty(IrcEventConstants.IRC_NICK);
@@ -199,24 +188,6 @@ public class ChannelImpl implements EventHandler, Channel {
 			
 				sendChanEvent(event, msg);
 			}
-		}
-
-		if (
-				(
-						msg.getCommand().equalsIgnoreCase("PRIVMSG")
-						&& stringMatches(msg.getEscapedParams(), getNick() + ":? +.*")
-						&& stringEqualsIgnoreCase(msg.getParams()[0], getChannel())
-						&& !stringEqualsIgnoreCase(msg.getPrefixNick(), getNick())
-				) || (
-						msg.getCommand().equalsIgnoreCase("PRIVMSG")
-						&& !stringEqualsIgnoreCase(msg.getPrefixNick(), getNick())
-						&& msg.isPrivate() 
-						//&& userStatus.containsKey(msg.getPrefixNick())
-				)
-			) {
-			//String temp = msg.getEscapedParams() == null ? "" : msg.getEscapedParams().replaceFirst(bot.getNick() + ":? +","");
-			//String[] botCmd = temp.split(" +");
-			//sendChanBotEvent(event, msg.getPrefixNick(),botCmd,msg.isPrivate());
 		}
 	}
 	

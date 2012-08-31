@@ -25,6 +25,7 @@ public class IrcSessionServiceImpl extends AbstractIrcEventHandler implements Ir
 	private Filter nickErrorFilter;
 	private Filter endMotdFilter;
 	private Filter notRegisteredErrorFilter;
+	private Filter motdMissingFilter;
 	private boolean registeringFirstTime = false;
 	private boolean awaitingSuccess = false;
 	private boolean registered = false;
@@ -40,6 +41,7 @@ public class IrcSessionServiceImpl extends AbstractIrcEventHandler implements Ir
 			nickErrorFilter = bundleContext.createFilter("(|(irc.msg.command=432)(irc.msg.command=433)(irc.msg.command=436))");
 			endMotdFilter = bundleContext.createFilter("(irc.msg.command=376)");
 			notRegisteredErrorFilter = bundleContext.createFilter("(irc.msg.command=451)");
+			motdMissingFilter = bundleContext.createFilter("(irc.msg.command=422)");
 		} catch (InvalidSyntaxException e) {
 			log.error("failed to create filter", e);
 		}
@@ -107,7 +109,7 @@ public class IrcSessionServiceImpl extends AbstractIrcEventHandler implements Ir
 						currentNick = nickList.nextNick(null);
 					registerNick(event, currentNick);
 				}
-			} else if(event.matches(endMotdFilter)) {
+			} else if(event.matches(endMotdFilter) || event.matches(motdMissingFilter)) {
 				if(registeringFirstTime) {
 					log.info("now successfully registered");
 					registeringFirstTime = false;
